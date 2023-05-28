@@ -2,3 +2,4 @@ numpy
 torch
 laplace-torch
 streamlit
+matplotlib
