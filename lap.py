@@ -115,4 +115,30 @@ if start:
   plot_regression(X_train, y_train, x, f_mu, f_sigma, 
                   file_name='regression_example_online', plot=False)
   st.image('plot.png')
+  from scipy.stats import norm
+  x=numpy.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95,0.99])
+  def z_score(confidence_level):
+      alpha = 1 - confidence_level
+      z = norm.ppf(1 - alpha/2)
+      return z
+  z_score=numpy.vectorize(z_score)
+  y=z_score(x)
+  ece_op=0
+  y_test_num = y_test.squeeze().detach().cpu().numpy()
+  lis=[]
+  for num in range(len(y)):
+    ratio=0
+    for entry in range(len(y_test_num)):
+      if abs(y_test_num[entry]-f_mu[entry])<=y[num]*f_sigma[entry]:
+        ratio+=1
+    ratio=ratio/len(y_test_num)
+    ece_op+=abs(ratio2-x[num])
+    lis.append(ratio)
+  ece_op=ece_op/len(x)
+  pyplot.plot(x,numpy.array(lis),label='Laplace Uncertainty')
+  pyplot.plot(x,x,label='Ideal case')
+  pyplot.title('reliability diagram')
+  pyplot.legend()
+  pyplot.show()
+  print('Expected calibration error: ',ece_op)
   start=not start
