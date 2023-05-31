@@ -8,7 +8,15 @@ from laplace import Laplace
 epochs = st.number_input('Number of epochs in optimizing prior precision', min_value=1, max_value=1000, value=100)
 hessian_approximation = st.selectbox('Hessian approximations', ['full', 'kron', 'diag'])
 weights_subset = st.selectbox('Subset of weights', ['all', 'last_layer'])
+num_hidden_layers = st.number_input('Enter the number of hidden layers:', min_value=1, value=1)
 
+# Initialize an empty list to store the number of perceptrons in each layer
+hidden_sizes = []
+
+# For each hidden layer, take the number of perceptrons as user input
+for i in range(num_hidden_layers):
+    num_perceptrons = st.number_input(f'Enter the number of perceptrons in hidden layer {i+1}:', min_value=1, value=1)
+    hidden_sizes.append(num_perceptrons)
 # Display user options
 st.write(f'Number of epochs: {epochs}')
 st.write(f'Hessian approximation: {hessian_approximation}')
@@ -46,7 +54,7 @@ class Net(nn.Module):
 
 
 input_size = 1
-hidden_sizes = [64, 32, 16, 8]
+#hidden_sizes = [64, 32, 16, 8]
 output_size = 1
 
   # Create an instance of the neural network
