@@ -3,3 +3,4 @@ torch
 laplace-torch
 streamlit
 matplotlib
+scipy
