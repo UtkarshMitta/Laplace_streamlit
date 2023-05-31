@@ -112,9 +112,11 @@ if start:
       pyplot.tight_layout()
       pyplot.show()
       pyplot.savefig('plot.png')
+      
   plot_regression(X_train, y_train, x, f_mu, f_sigma, 
                   file_name='regression_example_online', plot=False)
   st.image('plot.png')
+  pyplot.close()
   from scipy.stats import norm
   x=numpy.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95,0.99])
   def z_score(confidence_level):
