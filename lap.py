@@ -74,6 +74,7 @@ if start:
   f_sigma = f_var.squeeze().sqrt().cpu().numpy()
   from matplotlib import pyplot
   x = X_test.flatten().cpu().numpy()
+  y=y_test.flatten().cpu().numpy()
   def plot_regression(X_train, y_train, X_test, f_test, y_std, plot=True, 
                       file_name='regression_example'):
       fig, (ax1, ax2) = pyplot.subplots(nrows=1, ncols=2, sharey=True,
@@ -81,11 +82,13 @@ if start:
       ax1.set_title('MAP')
       ax1.scatter(X_train.flatten(), y_train.flatten(), alpha=0.3, color='tab:orange')
       ax1.plot(X_test, f_test, color='black', label='$f_{MAP}$')
+      ax1.plot(X_test,y,label='True')
       ax1.legend()
 
       ax2.set_title('LA')
       ax2.scatter(X_train.flatten(), y_train.flatten(), alpha=0.3, color='tab:orange')
       ax2.plot(X_test, f_test, label='$\mathbb{E}[f]$')
+      ax2.plot(X_test,y,label='True')
       ax2.fill_between(X_test, f_test-y_std*2, f_test+y_std*2, 
                       alpha=0.3, color='tab:blue', label='$2\sqrt{\mathbb{V}\,[y]}$')
       ax2.legend()
