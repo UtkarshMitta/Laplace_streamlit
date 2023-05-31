@@ -132,7 +132,7 @@ if start:
       if abs(y_test_num[entry]-f_mu[entry])<=y[num]*f_sigma[entry]:
         ratio+=1
     ratio=ratio/len(y_test_num)
-    ece_op+=abs(ratio2-x[num])
+    ece_op+=abs(ratio-x[num])
     lis.append(ratio)
   ece_op=ece_op/len(x)
   pyplot.plot(x,numpy.array(lis),label='Laplace Uncertainty')
@@ -140,5 +140,5 @@ if start:
   pyplot.title('reliability diagram')
   pyplot.legend()
   pyplot.show()
-  print('Expected calibration error: ',ece_op)
+  st.write('Expected calibration error: ',ece_op)
   start=not start
