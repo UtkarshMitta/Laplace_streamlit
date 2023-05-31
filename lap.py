@@ -140,5 +140,7 @@ if start:
   pyplot.title('reliability diagram')
   pyplot.legend()
   pyplot.show()
+  pyplot.savefig('reliability.png')
+  st.image('reliability.png')
   st.write('Expected calibration error: ',ece_op)
   start=not start
