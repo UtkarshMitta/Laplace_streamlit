@@ -80,7 +80,7 @@ if start:
       loss = criterion(model(X), y)
       loss.backward()
       optimizer.step()
-    loss_chart.add_rows([[i, loss.item()]])
+    loss_chart.add_rows([[i+1, loss.item()]])
   la = Laplace(model, 'regression', hessian_structure=hessian_approximation,subset_of_weights=weights_subset)
   la.fit(train_loader)
   la.optimize_prior_precision(n_steps=epochs)
