@@ -73,14 +73,23 @@ if start:
   n_epochs=10000
   criterion = torch.nn.MSELoss()
   optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-  loss_chart = st.line_chart()
+  chart_placeholder = st.empty()
+  epochs = []
+  losses = []
   for i in range(n_epochs):
     for X, y in train_loader:
       optimizer.zero_grad()
       loss = criterion(model(X), y)
       loss.backward()
       optimizer.step()
-    loss_chart.add_rows([[i+1, loss.item()]])
+    epochs.append(epoch+1)
+    losses.append(loss.item())
+    
+    pyplot.plot(epochs, losses, label="Training Loss")
+    pyplot.xlabel("Epoch")
+    pyplot.ylabel("Loss")
+    pyplot.legend()
+    chart_placeholder.pyplot(pyplot)
   la = Laplace(model, 'regression', hessian_structure=hessian_approximation,subset_of_weights=weights_subset)
   la.fit(train_loader)
   la.optimize_prior_precision(n_steps=epochs)
