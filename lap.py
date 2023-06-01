@@ -70,15 +70,17 @@ if start:
     # Code to run when the button is pressed
   st.write('Starting job...')
   model = Net(input_size, hidden_sizes, output_size)
-  n_epochs=1000
+  n_epochs=10000
   criterion = torch.nn.MSELoss()
-  optimizer = torch.optim.Adam(model.parameters(), lr=1e-2)
+  optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+  loss_chart = st.line_chart()
   for i in range(n_epochs):
     for X, y in train_loader:
       optimizer.zero_grad()
       loss = criterion(model(X), y)
       loss.backward()
       optimizer.step()
+    loss_chart.add_rows([[i, loss.item()]])
   la = Laplace(model, 'regression', hessian_structure=hessian_approximation,subset_of_weights=weights_subset)
   la.fit(train_loader)
   la.optimize_prior_precision(n_steps=epochs)
