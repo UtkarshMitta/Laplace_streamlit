@@ -10,7 +10,7 @@ epochs = st.number_input('Number of epochs in optimizing prior precision', min_v
 hessian_approximation = st.selectbox('Hessian approximations', ['full', 'kron', 'diag'])
 weights_subset = st.selectbox('Subset of weights', ['all','subnetwork','last_layer'])
 n_epochs=st.number_input('Number of epochs in training the model', min_value=1, max_value=1000, value=100)
-lr = st.slider("Learning rate", min_value=0, max_value=1)
+lr = st.slider("Learning rate", min_value=0, max_value=1,value=0.01)
 # Take the number of hidden layers as user input
 num_hidden_layers = st.number_input('Enter the number of hidden layers:', min_value=1, value=1)
 
