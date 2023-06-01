@@ -85,7 +85,7 @@ if start:
       optimizer.step()
     epochs.append(i+1)
     losses.append(loss.item())
-    
+    pyplot.clf()    
     pyplot.plot(epochs, losses, label="Training Loss")
     pyplot.xlabel("Epoch")
     pyplot.ylabel("Loss")
