@@ -9,7 +9,8 @@ from matplotlib import pyplot
 epochs = st.number_input('Number of epochs in optimizing prior precision', min_value=1, max_value=1000, value=100)
 hessian_approximation = st.selectbox('Hessian approximations', ['full', 'kron', 'diag'])
 weights_subset = st.selectbox('Subset of weights', ['all','subnetwork','last_layer'])
-
+n_epochs=st.number_input('Number of epochs in training the model', min_value=1, max_value=1000, value=100)
+lr = st.slider("Learning rate", min_value=0, max_value=1)
 # Take the number of hidden layers as user input
 num_hidden_layers = st.number_input('Enter the number of hidden layers:', min_value=1, value=1)
 
@@ -71,9 +72,8 @@ if start:
     # Code to run when the button is pressed
   st.write('Starting job...')
   model = Net(input_size, hidden_sizes, output_size)
-  n_epochs=10000
   criterion = torch.nn.MSELoss()
-  optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+  optimizer = torch.optim.Adam(model.parameters(), lr=lr)
   chart_placeholder = st.empty()
   epochs = []
   losses = []
