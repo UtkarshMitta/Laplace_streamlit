@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from torch import nn, optim
 import torch, numpy
 from laplace import Laplace
+from matplotlib import pyplot
 # User options
 epochs = st.number_input('Number of epochs in optimizing prior precision', min_value=1, max_value=1000, value=100)
 hessian_approximation = st.selectbox('Hessian approximations', ['full', 'kron', 'diag'])
@@ -97,7 +98,7 @@ if start:
   f_mu, f_var = la(X_test)
   f_mu = f_mu.squeeze().detach().cpu().numpy()
   f_sigma = f_var.squeeze().sqrt().cpu().numpy()
-  from matplotlib import pyplot
+  
   x = X_test.flatten().cpu().numpy()
   y=y_test.flatten().cpu().numpy()
   def plot_regression(X_train, y_train, X_test, f_test, y_std, plot=True, 
