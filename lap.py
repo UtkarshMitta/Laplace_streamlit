@@ -82,7 +82,7 @@ if start:
       loss = criterion(model(X), y)
       loss.backward()
       optimizer.step()
-    epochs.append(epoch+1)
+    epochs.append(i+1)
     losses.append(loss.item())
     
     pyplot.plot(epochs, losses, label="Training Loss")
